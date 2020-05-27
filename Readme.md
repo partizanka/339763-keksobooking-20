@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Анастасия  Хмара](https://up.htmlacademy.ru/javascript/20/user/339763).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений  Суглобов](https://up.htmlacademy.ru/javascript/20/user/1133747).
 
 ---
 
