@@ -82,7 +82,7 @@ function getCard(avatarNumber, maxWidth, mocks) {
       checkout: checkout,
       features: features,
       description: mocks.description,
-      photos: mocks.photos
+      photos: photos
     },
     location: {
       x: locationX,
