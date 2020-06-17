@@ -113,7 +113,7 @@ function renderPin(getCardResult) {
 }
 
 var fragment = document.createDocumentFragment();
-for (var i = 0; i < cards.length; i++) {
+for (var x = 0; x < cards.length; x++) {
   var render = renderPin(cards[i]);
   fragment.appendChild(render);
 }
