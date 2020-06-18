@@ -50,6 +50,7 @@ function getRandomElement(arr) {
 }
 
 function getLengthArr(lengthArr, num) {
+  num * -1;
   var randomLength = lengthArr.slice(num);
   return randomLength;
 }
@@ -114,7 +115,7 @@ function renderPin(getCardResult) {
 
 var fragment = document.createDocumentFragment();
 for (var x = 0; x < cards.length; x++) {
-  var render = renderPin(cards[i]);
+  var render = renderPin(cards[x]);
   fragment.appendChild(render);
 }
 
