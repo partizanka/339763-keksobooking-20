@@ -8,6 +8,16 @@ var pinTemplate = document.querySelector('#pin')
   .content
   .querySelector('.map__pin');
 
+var cardListElement = document.querySelector('.map');
+var cardTemplate = document.querySelector('#card')
+  .content
+  .querySelector('.map__card');
+
+var photosListElement = document.querySelector('.map');
+var photosTemplate = document.querySelector('#card')
+  .content
+  .querySelector('.popup__photos');
+
 var cards = [];
 var avatarNumber = 1;
 
@@ -113,10 +123,60 @@ function renderPin(getCardResult) {
   return pinElement;
 }
 
+function renderCard(getCardResult) {
+  var cardElement = cardTemplate.cloneNode(true);
+
+  var popupTitle = cardElement.querySelector('.popup__title');
+  popupTitle = getCardResult.offer.title;
+
+  var popupAddress = cardElement.querySelector('.popup__text--address');
+  popupAddress = getCardResult.offer.address;
+
+  var popupPrice = cardElement.querySelector('.popup__text--price');
+  popupPrice = getCardResult.offer.price + '₽/ночь';
+
+  var popupType = cardElement.querySelector('.popup__type');
+  popupType = getCardResult.offer.type;
+
+  var popupCapacity = cardElement.querySelector('.popup__text--capacity');
+  popupCapacity = getCardResult.offer.rooms + 'комнаты для ' + getCardResult.offer.guests + ' гостей';
+
+  var popupTime = cardElement.querySelector('.popup__text--time');
+  popupTime = 'Заезд после' + getCardResult.offer.checkin + ', выезд до ' + getCardResult.offer.checkout;
+
+  var popupFeatures = cardElement.querySelector('.popup__features');
+  popupFeatures = getCardResult.offer.features;
+
+  var popupDescription = cardElement.querySelector('.popup__description');
+  popupDescription = getCardResult.offer.description;
+
+  var popupAvatar = cardElement.querySelector('.popup__avatar');
+  popupAvatar.src = getCardResult.author.avatar;
+
+  return cardElement;
+}
+
+function renderPhotos(getCardResult) {
+  var photosElement = photosTemplate.cloneNode(true);
+
+  var popupPhotos = photosElement.querySelector('.popup__photo');
+  popupPhotos.src = getCardResult.offer.photos[0];
+
+  return photosElement;
+}
+
 var fragment = document.createDocumentFragment();
 for (var x = 0; x < cards.length; x++) {
-  var render = renderPin(cards[x]);
-  fragment.appendChild(render);
+  var rendPin = renderPin(cards[x]);
+  fragment.appendChild(rendPin);
+
+  var rendCard = renderCard(cards[x]);
+  fragment.appendChild(rendCard);
+
+  var rendPhotos = renderPhotos(cards[x]);
+  fragment.appendChild(rendPhotos);
 }
 
 similarListElement.appendChild(fragment);
+cardListElement.appendChild(fragment);
+photosListElement.appendChild(fragment);
