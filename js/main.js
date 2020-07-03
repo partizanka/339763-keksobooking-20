@@ -123,7 +123,7 @@ function renderPin(pinTemplate, getCardResult) {
   return pinElement;
 }
 
-function renderCard(cardTemplate, getCardResult) {
+function renderCard(cardTemplate, photosTemplate, getCardResult) {
   var cardElement = cardTemplate.cloneNode(true);
 
   var popupTitle = cardElement.querySelector('.popup__title');
@@ -171,10 +171,10 @@ function renderCard(cardTemplate, getCardResult) {
 
 var fragment = document.createDocumentFragment();
 for (var x = 0; x < cards.length; x++) {
-  var rendPin = renderPin(cards[x]);
+  var rendPin = renderPin(pinTemlate, getCardResult, cards[x]);
   fragment.appendChild(rendPin);
 
-  var rendCard = renderCard(cards[x]);
+  var rendCard = renderCard(cardTemlate, photosTemplate, getCardResult, cards[x]);
   fragment.appendChild(rendCard);
 
   // var rendPhotos = renderPhotos(cards[x]);
