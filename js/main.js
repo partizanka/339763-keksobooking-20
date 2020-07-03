@@ -13,7 +13,7 @@ var cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.map__card');
 
-var photosListElement = document.querySelector('.map');
+// var photosListElement = document.querySelector('.map');
 var photosTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup__photos');
@@ -65,7 +65,7 @@ function getLengthArr(lengthArr, num) {
   return randomLength;
 }
 
-function getCard(avatarNumber, maxWidth, mocks) {
+function getCard(mocks, avatarNumber, maxWidth) {
   var avatar = 'img/avatars/user' + '0' + avatarNumber + '.png';
   var type = getRandomElement(mocks.typeArr);
   var checkin = getRandomElement(mocks.checkinArr);
@@ -104,12 +104,12 @@ function getCard(avatarNumber, maxWidth, mocks) {
 }
 
 for (var i = 1; i <= 8; i++) {
-  var getCardResult = getCard(avatarNumber, maxWidth, mocks);
+  var getCardResult = getCard(mocks, avatarNumber, maxWidth);
   cards.push(getCardResult);
   avatarNumber = 1 + i;
 }
 
-function renderPin(getCardResult) {
+function renderPin(pinTemplate, getCardResult) {
   var pinElement = pinTemplate.cloneNode(true);
 
   pinElement.style.left = getCardResult.location.x + 'px';
@@ -123,7 +123,7 @@ function renderPin(getCardResult) {
   return pinElement;
 }
 
-function renderCard(getCardResult) {
+function renderCard(cardTemplate, getCardResult) {
   var cardElement = cardTemplate.cloneNode(true);
 
   var popupTitle = cardElement.querySelector('.popup__title');
@@ -150,20 +150,24 @@ function renderCard(getCardResult) {
   var popupDescription = cardElement.querySelector('.popup__description');
   popupDescription = getCardResult.offer.description;
 
+  var photosElement = photosTemplate.cloneNode(true);
+
+  var popupPhotos = photosElement.querySelector('.popup__photo');
+  popupPhotos.src = getCardResult.offer.photos[0];
+  var photosListElement = cardElement.querySelector('.popup__photos');
+  photosListElement.appendChild(photosElement);
+
   var popupAvatar = cardElement.querySelector('.popup__avatar');
   popupAvatar.src = getCardResult.author.avatar;
 
   return cardElement;
 }
 
-function renderPhotos(getCardResult) {
-  var photosElement = photosTemplate.cloneNode(true);
+// function renderPhotos(getCardResult) {
 
-  var popupPhotos = photosElement.querySelector('.popup__photo');
-  popupPhotos.src = getCardResult.offer.photos[0];
 
-  return photosElement;
-}
+//   return photosElement;
+// }
 
 var fragment = document.createDocumentFragment();
 for (var x = 0; x < cards.length; x++) {
@@ -173,10 +177,10 @@ for (var x = 0; x < cards.length; x++) {
   var rendCard = renderCard(cards[x]);
   fragment.appendChild(rendCard);
 
-  var rendPhotos = renderPhotos(cards[x]);
-  fragment.appendChild(rendPhotos);
+  // var rendPhotos = renderPhotos(cards[x]);
+  // fragment.appendChild(rendPhotos);
 }
 
 similarListElement.appendChild(fragment);
 cardListElement.appendChild(fragment);
-photosListElement.appendChild(fragment);
+// photosListElement.appendChild(fragment);
