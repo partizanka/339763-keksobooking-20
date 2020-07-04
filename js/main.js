@@ -16,7 +16,7 @@ var cardTemplate = document.querySelector('#card')
 // var photosListElement = document.querySelector('.map');
 var photosTemplate = document.querySelector('#card')
   .content
-  .querySelector('.popup__photos');
+  .querySelector('.popup__photos img');
 
 var cards = [];
 var avatarNumber = 1;
@@ -65,7 +65,7 @@ function getLengthArr(lengthArr, num) {
   return randomLength;
 }
 
-function getCard(mocks, avatarNumber, maxWidth) {
+function getCard(avatarNumber, maxWidth, mocks) {
   var avatar = 'img/avatars/user' + '0' + avatarNumber + '.png';
   var type = getRandomElement(mocks.typeArr);
   var checkin = getRandomElement(mocks.checkinArr);
@@ -104,7 +104,7 @@ function getCard(mocks, avatarNumber, maxWidth) {
 }
 
 for (var i = 1; i <= 8; i++) {
-  var getCardResult = getCard(mocks, avatarNumber, maxWidth);
+  var getCardResult = getCard(avatarNumber, maxWidth, mocks);
   cards.push(getCardResult);
   avatarNumber = 1 + i;
 }
@@ -125,6 +125,9 @@ function renderPin(pinTemplate, getCardResult) {
 
 function renderCard(cardTemplate, photosTemplate, getCardResult) {
   var cardElement = cardTemplate.cloneNode(true);
+
+  var popupAvatar = cardElement.querySelector('.popup__avatar');
+  popupAvatar.src = getCardResult.author.avatar;
 
   var popupTitle = cardElement.querySelector('.popup__title');
   popupTitle = getCardResult.offer.title;
@@ -153,34 +156,25 @@ function renderCard(cardTemplate, photosTemplate, getCardResult) {
   var photosElement = photosTemplate.cloneNode(true);
 
   var popupPhotos = photosElement.querySelector('.popup__photo');
-  popupPhotos.src = getCardResult.offer.photos[0];
-  var photosListElement = cardElement.querySelector('.popup__photos');
-  photosListElement.appendChild(photosElement);
 
-  var popupAvatar = cardElement.querySelector('.popup__avatar');
-  popupAvatar.src = getCardResult.author.avatar;
+  for (var y = 0; y <= photos.length; y++) {
+    popupPhotos.src = getCardResult.offer.photos[y];
+
+    var photosListElement = cardElement.querySelector('.popup__photos');
+    photosListElement.appendChild(photosElement);
+  }
 
   return cardElement;
 }
 
-// function renderPhotos(getCardResult) {
-
-
-//   return photosElement;
-// }
-
 var fragment = document.createDocumentFragment();
 for (var x = 0; x < cards.length; x++) {
-  var rendPin = renderPin(pinTemlate, getCardResult, cards[x]);
+  var rendPin = renderPin(pinTemplate, getCardResult, cards[x]);
   fragment.appendChild(rendPin);
 
-  var rendCard = renderCard(cardTemlate, photosTemplate, getCardResult, cards[x]);
+  var rendCard = renderCard(cardTemplate, photosTemplate, getCardResult, cards[x]);
   fragment.appendChild(rendCard);
-
-  // var rendPhotos = renderPhotos(cards[x]);
-  // fragment.appendChild(rendPhotos);
 }
 
 similarListElement.appendChild(fragment);
 cardListElement.appendChild(fragment);
-// photosListElement.appendChild(fragment);
